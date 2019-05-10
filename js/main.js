@@ -8,6 +8,7 @@ $(document).ready(function ()
     var $spreadCheckbox = $("#spread");
     var $alignGroup = $("#align-group");
     var $alignSelect = $("#align-select");
+    var $gridAlignSelect = $("#grid-align-select");
     var $marginTopInput = $("#margin-top");
     var $marginRightInput = $("#margin-right");
     var $marginBottomInput = $("#margin-bottom");
@@ -76,6 +77,7 @@ $(document).ready(function ()
         var gutter = parseInt($gutterInput.val());
         var spread = $spreadCheckbox.prop('checked');
         var alignment = $alignSelect.val();
+        var gridAlignment = $gridAlignSelect.val();
         var margins = {
             top: parseInt($marginTopInput.val()),
             right: parseInt($marginRightInput.val()),
@@ -132,21 +134,34 @@ $(document).ready(function ()
                     margins.top += remainingSpace / 2;
             }
         }
-        // Round down
-        finalImageWidth = Math.floor(finalImageWidth);
-        finalImageHeight = Math.floor(finalImageHeight);
+
+        // Clear canvas
+        canvas.clear();
 
         // Render loop
-        canvas.clear();
+        var innerMargin = 0;
         for (var i = 0; i < skaters; i++)
         {
             var x = i % columns;
             var y = Math.floor(i / columns);
+
+            if (y == rows - 1 && x == 0 && gridAlignment != 'left')
+            {
+                var remainingImages = skaters - i;
+                availableWidth = canvasWidth - horizontalGutter * (remainingImages - 1) - margins.right - margins.left;
+                remainingSpace = availableWidth - remainingImages * finalImageWidth;
+
+                if (gridAlignment == 'right')
+                    innerMargin = remainingSpace;
+                else if (gridAlignment == 'center')
+                    innerMargin = remainingSpace / 2;
+            }
+
             var options = {
-                left: x * (finalImageWidth + horizontalGutter) + margins.left,
+                left: x * (finalImageWidth + horizontalGutter) + margins.left + innerMargin,
                 top: y * (finalImageHeight + verticalGutter) + margins.top
             };
-            fabric.Image.fromURL('https://picsum.photos/'+finalImageWidth+'/'+finalImageHeight+'/?'+Math.random(), imageLoaded, options);
+            fabric.Image.fromURL('https://picsum.photos/'+Math.floor(finalImageWidth)+'/'+Math.floor(finalImageHeight)+'/?'+Math.random(), imageLoaded, options);
         }
     }
 

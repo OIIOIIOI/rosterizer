@@ -44,7 +44,7 @@
 					</div>
 					<div class="col">
 						<select id="image-ratio-select" class="mb-2">
-							<option value="portrait">Portrait</option>
+							<option value="portrait" selected>Portrait</option>
 							<option value="square">Square</option>
 							<option value="landscape">Landscape</option>
 							<option value="custom">Custom</option>
@@ -74,13 +74,26 @@
 				<!-- ALIGN ============================================ -->
 				<div id="align-group" class="row form-group">
 					<div class="col">
-						<label for="align-select">Alignment:</label>
+						<label for="align-select">Alignment in page:</label>
 					</div>
 					<div class="col">
 						<select id="align-select">
 							<option value="start">Start</option>
-							<option value="middle">Middle</option>
+							<option value="middle" selected>Middle</option>
 							<option value="end">End</option>
+						</select>
+					</div>
+				</div>
+				<!-- GRID ALIGN ============================================ -->
+				<div id="align-group" class="row form-group">
+					<div class="col">
+						<label for="grid-align-select">Alignment in grid:</label>
+					</div>
+					<div class="col">
+						<select id="grid-align-select">
+							<option value="left">Left</option>
+							<option value="center" selected>Center</option>
+							<option value="right">Right</option>
 						</select>
 					</div>
 				</div>

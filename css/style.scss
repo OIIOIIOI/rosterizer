@@ -3,7 +3,9 @@
 body {
   margin: 2em;
   font-family: 'Roboto', sans-serif;
-  background-color: #F4F4F4;
+  background: {
+    color: #E0E0E0;
+  }
 }
 
 canvas {
